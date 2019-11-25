@@ -77,6 +77,7 @@ if ($userId ) {
 <div  ><a href="logout.php">退出登录</a></div>
 <?php echo $GLOBALS['DrawIssuePage']; ?>
 <div  ><a href="touzhu.php">投注</a></div>
+<div  ><a href="addAcount.php">充值</a></div>
 <div ><a><?php echo $GLOBALS['userData']['user_name'] . " 余额:". $GLOBALS['accountInfo']['fee']."元"; ?></a></div>
 
 <div ><a>个人投注情况</a></div>
