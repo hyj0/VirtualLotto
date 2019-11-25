@@ -49,7 +49,7 @@ if ($username == null) {
             //新用户奖励
             $transNo = \VirtulLotto\Utils::newTransNo();
 
-            $ret = $userAccount->addMoney($transNo, $userId, 10000, '新用户奖励', 3);
+            $ret = $userAccount->addMoney($transNo, $userId, 100000, '新用户奖励', 3);
             if ($ret == 0) {
                 $conn->commit();
                 header("Location: ./index.php");

@@ -110,7 +110,7 @@ class UserAccount
 
     function getAccountLogList($userId) {
         try {
-            $sth = $this->conn->prepare("SELECT *
+            $sth = $this->conn->prepare("SELECT id ,	uid ,	type ,	sub_type 	,trans_no 	, org_fee 	,fee ,	end_fee 	,update_time ,	create_time ,	note
                 FROM t_user_account_log tual
                   WHERE uid = :uid
                   ORDER BY id DESC ;");

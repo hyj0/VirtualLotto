@@ -8,6 +8,7 @@
 
 require_once "Common/Config.php";
 require_once "Common/Touzhu.php";
+require_once "Common/UserInfo.php";
 
 
 //redNumInput=11+12+13+15+16+&blueNumInput=4+5+8+11+12+&%E7%A1%AE%E5%AE%9A%E6%8A%95%E6%B3%A8=%E6%8F%90%E4%BA%A4%E6%9F%A5%E8%AF%A2
@@ -58,6 +59,13 @@ $drawIssue = new \VirtulLotto\DrawIssue($conn);
 $sth = $drawIssue->getBullList();
 $tableStr = \VirtulLotto\Utils::sql_to_html_table($sth);
 $GLOBALS['drawIssueTable'] = $tableStr;
+
+//投注列表
+$userId = $_SESSION["admin"];
+$userInfo = new \VirtulLotto\UserInfo($conn);
+$sth = $userInfo->getRecentWagerList($userId);
+$tableStr = \VirtulLotto\Utils::sql_to_html_table($sth);
+$GLOBALS['wagerTable'] = $tableStr;
 
 ?>
 <!DOCTYPE html>
@@ -232,6 +240,9 @@ echo "</div>";
 
 <div ><a>开奖公告</a></div>
 <?php echo $GLOBALS['drawIssueTable']; ?>
+
+<div ><a>个人投注情况</a></div>
+<?php echo $GLOBALS['wagerTable']; ?>
 
 </body>
 </html>
