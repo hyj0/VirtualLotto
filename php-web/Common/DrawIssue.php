@@ -304,7 +304,7 @@ class DrawIssue
                 $winLevel = 2;
                 $winFee = 20*10000;//todo:浮动奖金
             }
-        } else if ($redWinCount == 5 and $blueWinCount == 1) {
+        } else if ($redWinCount == 5) {
            if ($blueWinCount == 1) {
                $winLevel = 3;
                $winFee = 3000;
@@ -325,7 +325,7 @@ class DrawIssue
                 $winLevel = 5;
                 $winFee = 10;
             }
-        } else if ($redWinCount == 2 or $redWinCount == 1) {
+        } else if ($redWinCount == 2 or $redWinCount == 1 or $redWinCount == 0) {
             if ($blueWinCount == 1) {
                 $winLevel = 6;
                 $winFee = 5;
@@ -467,5 +467,12 @@ if (false) {
     $high = 6000*85*4;
 
     echo $high;
+
+//    $conn = (new \VirtulLotto\DBConfig())->newConn();
+    $drawIssue = new \VirtulLotto\DrawIssue(null);
+
+    $userWagerNum = "1 5 8 13 18 20 22 25 28:1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16";
+    $draw_num = "03,06,10,11,27,33:03";
+//    $ret = $drawIssue->__getWagerWinInfo($userWagerNum, $draw_num);
 
 }
