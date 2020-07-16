@@ -26,17 +26,18 @@ class BullNumZc
     }
     function getBullNumList() {
         $retArr = array();
-        $doc =new \HtmlParser\ParserDom($this->html);
-        $arr = $doc->find("td");
-        print_r($arr);
+        $arr = json_decode($this->html,true);
 
-//        $one = array(
-//            "issue" =>   $sp[0],
-//            "redNum" => $sp[1],
-//            "blueNum" => $sp[2],
-//            "drawTime" => $sp[6]
-//        );
-//        array_push($retArr, $one);
+        foreach ($arr['result'] as $item) {
+            $date = substr($item["date"], 0, 10);
+            $one = array(
+                "issue" =>   $item["code"],
+                "redNum" => $item["red"],
+                "blueNum" => $item["blue"],
+                "drawTime" => $date
+            );
+            array_push($retArr, $one);
+        }
 
         return $retArr;
     }
@@ -101,8 +102,16 @@ class DrawIssue
 
     //更新开奖号码
     function updateBullNum() {
-        $html = $this->__getBullPage();
-        $arrBullNum = $this->__parseBullPage($html);
+        if (false) {
+            /*北京福彩*/
+            $html = $this->__getBullPage();
+            $arrBullNum = $this->__parseBullPage($html);
+        } else {
+            /*中福彩*/
+            $bullNum = new BullNumZc();
+            $bullNum->getPage();
+            $arrBullNum = $bullNum->getBullNumList();
+        }
 
         try {
             //最大期
@@ -434,10 +443,12 @@ class DrawIssue
 }
 
 if (false) {
-//    $bullNum = new BullNumZc();
-//    $bullNum->getPage();
-//    $ret = $bullNum->getBullNumList();
-//    print_r($ret);
+    $str = substr("2020-07-14(二)", 0, 10);
+    $bullNum = new BullNumZc();
+    $bullNum->getPage();
+    $ret = $bullNum->getBullNumList();
+    print_r($ret);
+
     "一等奖 	10 	6689534
 二等奖 	105 	201135
 三等奖 	1359 	3000
