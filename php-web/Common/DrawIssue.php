@@ -17,12 +17,19 @@ class BullNumZc
 {
     function __construct()
     {
-        $this->url = "http://www.cwl.gov.cn/cwl_admin/kjxx/findDrawNotice?name=ssq&issueCount=30";
+        $this->url = "http://www.cwl.gov.cn/cwl_admin/kjxx/findDrawNotice?name=ssq&issueCount=100";
         $this->html = "";
     }
 
     function getPage() {
-        $this->html = file_get_contents($this->url);
+        $options = array(
+            "http" => array(
+                "method" => "GET",
+                "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36\r\nReferer: http://www.cwl.gov.cn/kjxx/ssq/kjgg/\r\n"
+            )
+        );
+        $context = stream_context_create($options);
+        $this->html = file_get_contents($this->url, false, $context);
     }
     function getBullNumList() {
         $retArr = array();
